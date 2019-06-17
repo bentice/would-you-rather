@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import Dashboard from './Dashboard'
+import NavBar from './NavBar'
+
+
 
 function App() {
   return (
-    <div className="App">
-      Starting Out
-    </div>
+    <Fragment>
+      <NavBar />
+      <Dashboard />
+    </Fragment>
+
   );
 }
 
