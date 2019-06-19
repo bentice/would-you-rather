@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Results from './Results'
+import AnswerPoll from './AnswerPoll'
 import { connect } from 'react-redux'
-import { Card } from 'antd'
+import { Card, Avatar, Typography } from 'antd'
 import { formatQuestion } from '../utils/helpers'
 
 const tabList = [
@@ -14,6 +15,8 @@ const tabList = [
         tab: 'results',
     }
 ]
+
+const { Text } = Typography
 
 class Poll extends Component {
     state = {
@@ -30,7 +33,7 @@ class Poll extends Component {
     render () {
 
         const contentList = {
-            wouldyou:<p>would you rather...</p>,
+            wouldyou: <AnswerPoll question={this.props.question} authedUser={this.props.authedUser}/>,
             results: <Results 
                         optionOne={this.props.question.optionOne}
                         optionTwo={this.props.question.optionTwo}
@@ -40,7 +43,13 @@ class Poll extends Component {
         return (
                 <Card
                     style={{width: '100%'}}
-                    title="Would you rather...?"
+                    title={
+                    <div>
+                        <Avatar src={this.props.question.avatar} />
+                        <br />
+                        <Text>{this.props.question.name} wants to know would you rather...?</Text>
+                    </div>
+                    }
                     tabList={tabList}
                     activateTabkey={this.state.key}
                     onTabChange={key=>{
