@@ -38,8 +38,8 @@ class Dashboard extends Component {
             <div>
                 {
                     current==="unanswered"
-                    ? <PollList />
-                    : <PollList />
+                    ? <PollList listCurrent={current}/>
+                    : <PollList listCurrent={current}/>
                 }
             </div>
         </div>

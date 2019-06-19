@@ -12,7 +12,7 @@ class PollList extends Component {
                 dataSource={this.props.questionIDs}
                 renderItem={item => (
                     <List.Item>
-                        <div>question ID : {item}</div>
+                        <Poll id={item} />
                     </List.Item>
                 )}
             />
@@ -20,9 +20,19 @@ class PollList extends Component {
     }
 }
 
-function mapStateToProps ({ questions }) {
+function mapStateToProps ({ questions, authedUser }, { listCurrent }) {
+    const listQuestions = listCurrent ==='answered'
+    ? Object.keys(questions)
+        .filter(id => 
+        [...questions[id].optionOne.votes,
+        ...questions[id].optionTwo.votes].includes(authedUser))
+    : Object.keys(questions)
+    .filter(id =>
+    !([...questions[id].optionOne.votes,
+    ...questions[id].optionTwo.votes].includes(authedUser)) )
+
     return {
-        questionIDs: Object.keys(questions)
+        questionIDs: listQuestions
             .sort((a, b)=> questions[b].timestamp - questions[a].timestamp)
     }
 }

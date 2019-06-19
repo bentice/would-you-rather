@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
+import Results from './Results'
+import { connect } from 'react-redux'
 import { Card } from 'antd'
+import { formatQuestion } from '../utils/helpers'
 
 const tabList = [
     {
@@ -12,15 +15,12 @@ const tabList = [
     }
 ]
 
-const contentList = {
-    wouldyou:<p>would you rather...</p>,
-    results: <p>results...</p>,
-}
-
 class Poll extends Component {
     state = {
         key: 'wouldyou'
     }
+
+
 
     onTabChange = (key) => {
         console.log(key);
@@ -28,8 +28,16 @@ class Poll extends Component {
     }
     
     render () {
+
+        const contentList = {
+            wouldyou:<p>would you rather...</p>,
+            results: <Results 
+                        optionOne={this.props.question.optionOne}
+                        optionTwo={this.props.question.optionTwo}
+                        />,
+        }
+
         return (
-            <div>
                 <Card
                     style={{width: '100%'}}
                     title="Would you rather...?"
@@ -41,9 +49,18 @@ class Poll extends Component {
                 >
                     {contentList[this.state.key]}
                 </Card>
-            </div>
         )
     }
 }
 
-export default Poll
+function mapStateToProps ({authedUser, users, questions}, {id}) {
+    const question = questions[id]
+
+    return {
+        authedUser,
+        question: formatQuestion(question , users[question.author], authedUser)
+    }
+}
+
+
+export default connect(mapStateToProps)(Poll)
