@@ -1,4 +1,4 @@
-import { getInitialData } from './api'
+import { getInitialData } from '../utils/api'
 import { recieveQuestions } from './questions'
 import { recieveUsers } from './users'
 import { setAuthedUser } from './authedUser'
@@ -14,6 +14,5 @@ export function handleInitialData () {
                 dispatch(recieveQuestions(questions))
                 dispatch(setAuthedUser(AUTHED_ID))
             })
-
     }
 }

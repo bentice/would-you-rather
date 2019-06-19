@@ -1,17 +1,28 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux'
+import { handleInitialData } from '../actions/shared'
 import Dashboard from './Dashboard'
 import NavBar from './NavBar'
 
 
 
-function App() {
-  return (
-    <Fragment>
-      <NavBar />
-      <Dashboard />
-    </Fragment>
-
-  );
+class App extends Component {
+  
+  componentDidMount (){
+    this.props.dispatch(handleInitialData())
+  }
+  
+  render () {
+    return (
+      <Fragment>
+        <NavBar />
+        <Dashboard />
+      </Fragment>
+  
+    );
+  }
 }
 
-export default App;
+
+
+export default connect()(App)

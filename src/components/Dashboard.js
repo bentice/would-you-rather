@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import 'antd/dist/antd.css'
-import { Breadcrumb } from 'antd'
+import { Menu, Icon } from 'antd'
 import { Row } from 'antd'
-import Poll from './Poll'
+import PollList from './PollList'
 
 class Dashboard extends Component {
     state = {
@@ -22,18 +22,24 @@ class Dashboard extends Component {
 
         return (
         <div>
-            <Row type='flex' justify='center'>
-                <Breadcrumb>
-                    <Breadcrumb.Item key='unanswered'>Unanswered</Breadcrumb.Item>
-                    <Breadcrumb.Item key='answered'>Answered</Breadcrumb.Item>
-                </Breadcrumb>
+            <Row type='flex' justify='center' >
+            <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
+                    <Menu.Item key='unanswered'>
+                        <Icon type="question" />
+                        Unanswered
+                    </Menu.Item>
+                    <Menu.Item key='answered'>
+                        <Icon type='check' />
+                        Answered
+                    </Menu.Item>
+                </Menu>
             </Row>
 
             <div>
                 {
-                    current ==="unanswered"
-                    ? <Poll />
-                    : <Poll />
+                    current==="unanswered"
+                    ? <PollList />
+                    : <PollList />
                 }
             </div>
         </div>
