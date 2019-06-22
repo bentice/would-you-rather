@@ -15,9 +15,9 @@ export default function questions (state={}, action) {
                 ...state,
                 [action.qid]: {
                     ...questions[action.qid],
-                    [action.option]: {
-                      ...questions[action.qid][action.option],
-                      votes: questions[action.qid][action.option].votes.concat([action.authedUser])
+                    [action.answer]: {
+                      ...questions[action.qid][action.answer],
+                      votes: questions[action.qid][action.answer].votes.concat([action.authedUser])
                     }
                 }
             }

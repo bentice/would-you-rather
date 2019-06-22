@@ -1,17 +1,15 @@
 import React, { Component } from 'react'
 import Results from './Results'
 import AnswerPoll from './AnswerPoll'
-import { connect } from 'react-redux'
 import { Card, Avatar, Typography } from 'antd'
-import { formatQuestion } from '../utils/helpers'
 
 const tabList = [
     {
-        key: 'wouldyou',
+        key: 'unanswered',
         tab: 'wouldyou',
     },
     {
-        key: 'results',
+        key: 'answered',
         tab: 'results',
     }
 ]
@@ -19,11 +17,10 @@ const tabList = [
 const { Text } = Typography
 
 class Poll extends Component {
+    
     state = {
-        key: 'wouldyou'
+        key: this.props.currentList
     }
-
-
 
     onTabChange = (key) => {
         console.log(key);
@@ -31,12 +28,19 @@ class Poll extends Component {
     }
     
     render () {
+        const { authedUser, question, users, currentList } = this.props
 
         const contentList = {
-            wouldyou: <AnswerPoll question={this.props.question} authedUser={this.props.authedUser}/>,
-            results: <Results 
-                        optionOne={this.props.question.optionOne}
-                        optionTwo={this.props.question.optionTwo}
+            unanswered: <AnswerPoll 
+                            qid={this.props.qid} 
+                            authedUser={authedUser} 
+                            question={question} 
+                            users={users}/>,
+            answered: <Results 
+                        qid={this.props.qid} 
+                        authedUser={authedUser} 
+                        question={question} 
+                        users={users}
                         />,
         }
 
@@ -45,9 +49,9 @@ class Poll extends Component {
                     style={{width: '100%'}}
                     title={
                     <div>
-                        <Avatar src={this.props.question.avatar} />
+                        <Avatar src={question.avatar} />
                         <br />
-                        <Text>{this.props.question.name} wants to know would you rather...?</Text>
+                        <Text>{question.name} wants to know would you rather...?</Text>
                     </div>
                     }
                     tabList={tabList}
@@ -61,15 +65,15 @@ class Poll extends Component {
         )
     }
 }
-
-function mapStateToProps ({authedUser, users, questions}, {id}) {
-    const question = questions[id]
+/*
+function mapStateToProps ({authedUser, users, questions}, {qid}) {
+    const question = questions[qid]
 
     return {
         authedUser,
         question: formatQuestion(question , users[question.author], authedUser)
     }
 }
+*/
 
-
-export default connect(mapStateToProps)(Poll)
+export default Poll

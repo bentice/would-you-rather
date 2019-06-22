@@ -10,12 +10,12 @@ export function recieveQuestions (questions) {
     }
 }
 
-export function answerQuestion ({qid, authedUser, option }) {
+export function answerQuestion ({authedUser, qid, answer }) {
     return {
         type: ANSWER_QUESTION,
         qid,
         authedUser,
-        option,
+        answer,
     }
 }
 

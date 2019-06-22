@@ -3,6 +3,8 @@ import 'antd/dist/antd.css'
 import { Menu, Icon } from 'antd'
 import { Row } from 'antd'
 import PollList from './PollList'
+import { connect } from 'react-redux'
+
 
 class Dashboard extends Component {
     state = {
@@ -18,6 +20,7 @@ class Dashboard extends Component {
 
 
     render(){
+        const { authedUser, questions, users} = this.props
         const { current } = this.state
 
         return (
@@ -38,8 +41,8 @@ class Dashboard extends Component {
             <div>
                 {
                     current==="unanswered"
-                    ? <PollList listCurrent={current}/>
-                    : <PollList listCurrent={current}/>
+                    ? <PollList currentList={current} authedUser={authedUser} questions={questions} users={users} />
+                    : <PollList currentList={current} authedUser={authedUser} questions={questions} users={users} />
                 }
             </div>
         </div>
@@ -47,4 +50,14 @@ class Dashboard extends Component {
     }
 }
 
-export default Dashboard
+function mapStateToProps ({authedUser, questions, users }) {
+
+    return {
+        authedUser,
+        questions,
+        users,
+    }
+}
+
+
+export default connect(mapStateToProps)(Dashboard)
