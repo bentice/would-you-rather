@@ -23,7 +23,7 @@ class AnswerPoll extends Component {
         dispatch(handleAnswerQuestion({
             authedUser,
             qid,
-            answer: this.state.value,
+            answer: 'optionTwo',
           }))
 
     }
@@ -34,8 +34,8 @@ class AnswerPoll extends Component {
                 <Form onSubmit={this.handleSubmit} >
                     <Form.Item>
                     <Radio.Group buttonStyle="solid">
-                        <Radio.Button name="myRadioInput" value="optionOne" checked={()=>this.handleRadioState(this.value)}>{this.props.question.optionOne.text}</Radio.Button>
-                        <Radio.Button name="myRadioInput" value="optionTwo" checked={()=>this.handleRadioState(this.value)}>{this.props.question.optionTwo.text}</Radio.Button>
+                        <Radio.Button name="myRadioInput" value="optionOne" >{this.props.question.optionOne.text}</Radio.Button>
+                        <Radio.Button name="myRadioInput" value="optionTwo" >{this.props.question.optionTwo.text}</Radio.Button>
                     </Radio.Group>
                     </Form.Item>
                     <Form.Item>
@@ -47,16 +47,14 @@ class AnswerPoll extends Component {
     }
 }
 
-/*
-function mapStateToProps ({authedUser, users, questions}, {qid}) {
-    
-    const question = questions[qid]
+function mapStateToProps ({ authedUser }, {qid, question}){
 
     return {
         authedUser,
-        question: formatQuestion(question , users[question.author], authedUser)
+        qid,
+        question,
     }
 }
-*/
 
-export default connect()(AnswerPoll)
+
+export default connect(mapStateToProps)(AnswerPoll)

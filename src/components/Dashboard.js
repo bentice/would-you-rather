@@ -20,7 +20,7 @@ class Dashboard extends Component {
 
 
     render(){
-        const { authedUser, questions, users} = this.props
+        const {dispatch, authedUser, questions, users} = this.props
 
         return (
         <div>
@@ -44,12 +44,14 @@ class Dashboard extends Component {
                         currentList={"unanswered"} 
                         authedUser={authedUser} 
                         questions={questions} 
-                        users={users} />
+                        users={users}
+                        dispatch={dispatch} />
                     : <PollList 
                         currentList={"answered"} 
                         authedUser={authedUser} 
                         questions={questions} 
-                        users={users} />
+                        users={users}
+                        dispatch={dispatch} />
                 }
             </div>
         </div>

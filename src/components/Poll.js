@@ -27,7 +27,7 @@ class Poll extends Component {
     }
     
     render () {
-        const { qid, authedUser, question, users, currentList } = this.props
+        const { qid, authedUser, question, users, currentList, dispatch } = this.props
 
         const tabList = [
             {
@@ -44,15 +44,15 @@ class Poll extends Component {
 
         const contentList = {
             unanswered: <AnswerPoll 
-                            qid={qid} 
-                            authedUser={authedUser} 
-                            question={question} 
-                            users={users}/>,
+                            qid={qid}
+                            question={question}
+                            />,
             answered: <Results 
                         qid={qid} 
                         authedUser={authedUser} 
                         question={question} 
                         users={users}
+                        dispatch={dispatch}
                         />,
         }
 

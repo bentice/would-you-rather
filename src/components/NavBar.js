@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import 'antd/dist/antd.css'
 import { Menu, Icon } from 'antd'
 import { Row } from 'antd'
+import { Link } from 'react-router-dom'
 
 class NavBar extends Component {
     state = {
@@ -21,14 +22,17 @@ class NavBar extends Component {
                     <Menu.Item  key='dashboard'>
                         <Icon type="home"/>
                         Home
+                        <Link to="/"/>
                     </Menu.Item>
                     <Menu.Item key="new">
                         <Icon type="plus"/>
                         New Quesion
+                        <Link to="/new"/>
                     </Menu.Item>
                     <Menu.Item key="leaderboard">
                         <Icon type="ordered-list" />
                         Leaderboard
+                        <Link to='/leaderboard'/>
                     </Menu.Item>
                 </Menu>
             </Row>
