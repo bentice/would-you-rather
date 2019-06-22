@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 
 class Dashboard extends Component {
     state = {
-        current: "unanswered"
+        current: 'unanswered'
     }
 
     handleClick = e => {
@@ -21,7 +21,6 @@ class Dashboard extends Component {
 
     render(){
         const { authedUser, questions, users} = this.props
-        const { current } = this.state
 
         return (
         <div>
@@ -40,9 +39,17 @@ class Dashboard extends Component {
 
             <div>
                 {
-                    current==="unanswered"
-                    ? <PollList currentList={current} authedUser={authedUser} questions={questions} users={users} />
-                    : <PollList currentList={current} authedUser={authedUser} questions={questions} users={users} />
+                    this.state.current==="unanswered"
+                    ? <PollList 
+                        currentList={"unanswered"} 
+                        authedUser={authedUser} 
+                        questions={questions} 
+                        users={users} />
+                    : <PollList 
+                        currentList={"answered"} 
+                        authedUser={authedUser} 
+                        questions={questions} 
+                        users={users} />
                 }
             </div>
         </div>

@@ -3,24 +3,23 @@ import Results from './Results'
 import AnswerPoll from './AnswerPoll'
 import { Card, Avatar, Typography } from 'antd'
 
-const tabList = [
-    {
-        key: 'unanswered',
-        tab: 'wouldyou',
-    },
-    {
-        key: 'answered',
-        tab: 'results',
-    }
-]
+
 
 const { Text } = Typography
 
 class Poll extends Component {
     
     state = {
-        key: this.props.currentList
+        key: '',
     }
+
+    componentDidMount(){
+        const { currentList } = this.props
+        this.setState({
+            key: currentList
+        })
+    }
+    
 
     onTabChange = (key) => {
         console.log(key);
@@ -28,16 +27,29 @@ class Poll extends Component {
     }
     
     render () {
-        const { authedUser, question, users, currentList } = this.props
+        const { qid, authedUser, question, users, currentList } = this.props
+
+        const tabList = [
+            {
+                key: 'unanswered',
+                tab: 'Question',
+                disabled: currentList === 'unanswered' ? false : true,
+            },
+            {
+                key: 'answered',
+                tab: 'Results',
+                disabled: currentList === 'answered' ? false : true,
+            }
+        ] 
 
         const contentList = {
             unanswered: <AnswerPoll 
-                            qid={this.props.qid} 
+                            qid={qid} 
                             authedUser={authedUser} 
                             question={question} 
                             users={users}/>,
             answered: <Results 
-                        qid={this.props.qid} 
+                        qid={qid} 
                         authedUser={authedUser} 
                         question={question} 
                         users={users}
@@ -55,12 +67,9 @@ class Poll extends Component {
                     </div>
                     }
                     tabList={tabList}
-                    activateTabkey={this.state.key}
-                    onTabChange={key=>{
-                        this.onTabChange(key)
-                    }}
+                    activeTabKey={currentList}
                 >
-                    {contentList[this.state.key]}
+                    {contentList[currentList]}
                 </Card>
         )
     }

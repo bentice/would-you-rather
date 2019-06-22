@@ -24,7 +24,12 @@ class PollList extends Component {
                 dataSource={questionIDs}
                 renderItem={item => (
                     <List.Item>
-                        <Poll qid={item} authedUsers={authedUser} question={formatQuestion(questions[item] , users[questions[item].author], authedUser)} users={users} currentList={currentList} />
+                        <Poll 
+                        qid={item} 
+                        authedUsers={authedUser} 
+                        question={formatQuestion(questions[item] , users[questions[item].author], authedUser)} 
+                        users={users} 
+                        currentList={currentList} />
                     </List.Item>
                 )}
             />
