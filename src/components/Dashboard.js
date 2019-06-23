@@ -12,6 +12,8 @@ class Dashboard extends Component {
     }
 
     handleClick = e => {
+        e.preventDefault()
+        
         console.log('click ', e);
         this.setState({
             current: e.key,
@@ -42,16 +44,10 @@ class Dashboard extends Component {
                     this.state.current==="unanswered"
                     ? <PollList 
                         currentList={"unanswered"} 
-                        authedUser={authedUser} 
-                        questions={questions} 
-                        users={users}
-                        dispatch={dispatch} />
+                        />
                     : <PollList 
                         currentList={"answered"} 
-                        authedUser={authedUser} 
-                        questions={questions} 
-                        users={users}
-                        dispatch={dispatch} />
+                         />
                 }
             </div>
         </div>
@@ -59,14 +55,5 @@ class Dashboard extends Component {
     }
 }
 
-function mapStateToProps ({authedUser, questions, users }) {
 
-    return {
-        authedUser,
-        questions,
-        users,
-    }
-}
-
-
-export default connect(mapStateToProps)(Dashboard)
+export default Dashboard

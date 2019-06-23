@@ -11,6 +11,7 @@ export function recieveQuestions (questions) {
 }
 
 export function answerQuestion ({authedUser, qid, answer }) {
+    console.log("answerQuestionReached", {qid, authedUser, answer})
     return {
         type: ANSWER_QUESTION,
         qid,

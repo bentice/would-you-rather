@@ -6,7 +6,7 @@ import Dashboard from './Dashboard'
 import NavBar from './NavBar'
 import CreateNewQuestion from './CreateNewQuestion'
 import LeaderBoard from './LeaderBoard'
-
+import Login from './Login'
 
 
 
@@ -19,12 +19,18 @@ class App extends Component {
   render () {
     return (
       <Router>
-      <Fragment>
-        <NavBar />
-        <Route path='/' exact component={Dashboard}/>
-        <Route path='/new' exact component={CreateNewQuestion}/>
-        <Route path='/leaderboard' exact component={LeaderBoard}/>
-      </Fragment>
+        { this.props.loading===true
+        ? null
+        : <Fragment>
+          <NavBar />
+            <Route path='/' exact component={Login} />
+            <Route path='/home' exact component={Dashboard}/>
+            <Route path='/new' exact component={CreateNewQuestion}/>
+            <Route path='/leaderboard' exact component={LeaderBoard}/>
+        </Fragment> 
+        
+
+        }
       </Router>
 
   
@@ -32,5 +38,11 @@ class App extends Component {
   }
 }
 
+function mapStateToProps({ authedUser }){
+  return {
+    loading: authedUser === null,
+    authedUser
+  }
+}
 
-export default connect()(App)
+export default connect(mapStateToProps)(App)

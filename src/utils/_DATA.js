@@ -130,7 +130,6 @@ export function _getQuestions () {
     setTimeout(() => res({...questions}), 1000)
   })
 }
-
 function formatQuestion ({ optionOneText, optionTwoText, author }) {
   return {
     id: generateUID(),

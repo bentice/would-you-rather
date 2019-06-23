@@ -18,3 +18,5 @@ export function formatDate (timestamp) {
       hasVoted: optionOne.votes.includes(authedUser) || optionTwo.votes.includes(authedUser),
     }
   }
+
+  

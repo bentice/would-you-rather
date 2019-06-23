@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { List } from 'antd'
+import { connect } from 'react-redux'
 import Poll from './Poll'
 import { formatQuestion } from '../utils/helpers'
+import { handleAnswerQuestion } from '../actions/shared'
 
 class PollList extends Component {
 
@@ -20,7 +22,7 @@ class PollList extends Component {
 
         return(
             <List 
-                itemLayou="vertical"
+                itemLayout="vertical"
                 dataSource={questionIDs}
                 renderItem={item => (
                     <List.Item>
@@ -29,30 +31,24 @@ class PollList extends Component {
                         authedUsers={authedUser} 
                         question={formatQuestion(questions[item] , users[questions[item].author], authedUser)} 
                         users={users} 
-                        currentList={currentList} />
+                        currentList={currentList}
+                        handleVote={this.handleVote} />
                     </List.Item>
                 )}
             />
         )
     }
 }
-/*
-function mapStateToProps ({ questions, authedUser }, { listCurrent }) {
-    const listQuestions = listCurrent ==='answered'
-    ? Object.keys(questions)
-        .filter(id => 
-        [...questions[id].optionOne.votes,
-        ...questions[id].optionTwo.votes].includes(authedUser))
-    : Object.keys(questions)
-    .filter(id =>
-    !([...questions[id].optionOne.votes,
-    ...questions[id].optionTwo.votes].includes(authedUser)) )
 
+function mapStateToProps ({ questions, authedUser, users }, { currentList }) {
+    
     return {
-        questionIDs: listQuestions
-            .sort((a, b)=> questions[b].timestamp - questions[a].timestamp)
+        authedUser,
+        users,
+        questions,
+        currentList
     }
 }
-*/
 
-export default PollList
+
+export default connect(mapStateToProps)(PollList)

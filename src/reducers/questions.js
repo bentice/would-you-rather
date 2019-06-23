@@ -22,6 +22,7 @@ export default function questions (state={}, action) {
                 }
             }
         default:
+            console.log("default questions")
             return state
     }
 }
