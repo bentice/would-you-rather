@@ -2,43 +2,47 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { handleLogin } from '../actions/authedUser'
 import { Icon, Avatar, Button, Radio, Row, Form } from 'antd'
-import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 
 class Login extends Component {
 
     state = {
-        selectedUser: ''
+        selectedUser: '',
+        toHome: false,
     }
 
     handleSelectUser = (e) => {
         e.preventDefault()
 
         const selectedUser = e.target.value
+
         this.setState({
             selectedUser
         })
         
     }
 
-    handleUserLogin () {
+    handleUserLogin (selectedUser) {
         const { dispatch }  = this.props
-        const { selectedUser } = this.state
         dispatch(handleLogin(selectedUser))
+
+        this.setState(()=>({
+            toHome: true
+        }))
     }
     
     render () {
         const { selectedUser } = this.state
         const { users, userIds} = this.props
-        console.log("currentState", this.state)
-        console.log("selectedUser", selectedUser)
+
         return (
             <Fragment>
-                <Form onSubmit={this.handleUserLogin}>
+                <Form onSubmit={()=>this.handleUserLogin(selectedUser)}>
                     <Row>
                         {userIds.map(id=>(
-                            <Form.Item value={id}>
-                                <Button size="large" key={id} onClick={this.handleSelectUser}>
+                            <Form.Item>
+                                <Button size="large" key={id} value={id} onClick={this.handleSelectUser}>
                                     <Avatar src={users[id].avatarURL} size="large" />
                                 </Button>
                             </Form.Item>
@@ -46,7 +50,7 @@ class Login extends Component {
                     </Row>
                     <Row>
                         <Form.Item>
-                            <Button shape="round" size="large" htmlType="submit" href="/home">
+                            <Button shape="round" size="large" htmlType="submit">
                                     Login
                             </Button>
                         </Form.Item>
@@ -56,6 +60,8 @@ class Login extends Component {
         )
     }
 }
+
+
 
 function mapStateToProps ({ users }) {
 

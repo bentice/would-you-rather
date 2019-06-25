@@ -3,12 +3,13 @@ import { List } from 'antd'
 import { connect } from 'react-redux'
 import Poll from './Poll'
 import { formatQuestion } from '../utils/helpers'
-import { handleAnswerQuestion } from '../actions/shared'
 
 class PollList extends Component {
 
     render (){
         const { authedUser, questions, users, currentList } = this.props
+
+        console.log("pollList props", this.props)
 
         const questionIDs = currentList ==='answered'
         ? Object.keys(questions)
@@ -32,7 +33,7 @@ class PollList extends Component {
                         question={formatQuestion(questions[item] , users[questions[item].author], authedUser)} 
                         users={users} 
                         currentList={currentList}
-                        handleVote={this.handleVote} />
+                        />
                     </List.Item>
                 )}
             />
@@ -40,15 +41,5 @@ class PollList extends Component {
     }
 }
 
-function mapStateToProps ({ questions, authedUser, users }, { currentList }) {
-    
-    return {
-        authedUser,
-        users,
-        questions,
-        currentList
-    }
-}
 
-
-export default connect(mapStateToProps)(PollList)
+export default connect()(PollList)

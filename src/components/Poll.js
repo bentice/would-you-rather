@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Results from './Results'
 import AnswerPoll from './AnswerPoll'
 import { Card, Avatar, Typography } from 'antd'
+import { connect } from 'react-redux'
 
 
 
@@ -27,8 +28,8 @@ class Poll extends Component {
     }
     
     render () {
-        const { qid, authedUser, question, users, currentList, handleVote } = this.props
-
+        const { qid, authedUser, question, users, currentList} = this.props
+        console.log("poll props", this.props)
         const tabList = [
             {
                 key: 'unanswered',
@@ -44,7 +45,6 @@ class Poll extends Component {
 
         const contentList = {
             unanswered: <AnswerPoll
-                            authedUser={authedUser}
                             qid={qid}
                             question={question}
                             />,
@@ -85,4 +85,4 @@ function mapStateToProps ({authedUser, users, questions}, {qid}) {
 }
 */
 
-export default Poll
+export default connect()(Poll)

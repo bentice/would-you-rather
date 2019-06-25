@@ -8,7 +8,7 @@ const { Title } = Typography
 
 class NavBar extends Component {
     state = {
-        current: 'dashboard'
+        current: this.props.pathname
     }
 
     handleClick = e => {
@@ -29,7 +29,7 @@ class NavBar extends Component {
                 <Menu.Item  key='dashboard'>
                     <Icon type="home"/>
                     Home
-                    <Link to="/"/>
+                    <Link to="/home"/>
                 </Menu.Item>
                 <Menu.Item key="new">
                     <Icon type="plus"/>

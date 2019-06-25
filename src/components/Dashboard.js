@@ -11,10 +11,7 @@ class Dashboard extends Component {
         current: 'unanswered'
     }
 
-    handleClick = e => {
-        e.preventDefault()
-        
-        console.log('click ', e);
+    handleClick = (e) => {
         this.setState({
             current: e.key,
         })
@@ -22,8 +19,8 @@ class Dashboard extends Component {
 
 
     render(){
-        const {dispatch, authedUser, questions, users} = this.props
-
+        const { questions, authedUser, users } = this.props
+        console.log("Dashboard props",this.props)
         return (
         <div>
             <Row type='flex' justify='center' >
@@ -43,10 +40,16 @@ class Dashboard extends Component {
                 {
                     this.state.current==="unanswered"
                     ? <PollList 
-                        currentList={"unanswered"} 
+                        currentList={"unanswered"}
+                        questions={questions}
+                        authedUser={authedUser}
+                        users={users}
                         />
                     : <PollList 
                         currentList={"answered"} 
+                        questions={questions}
+                        authedUser={authedUser}
+                        users={users}
                          />
                 }
             </div>
@@ -55,5 +58,13 @@ class Dashboard extends Component {
     }
 }
 
+function mapStateToProps ({ questions, authedUser, users }) {
+    
+    return {
+        authedUser,
+        users,
+        questions
+    }
+}
 
-export default Dashboard
+export default connect(mapStateToProps)(Dashboard)

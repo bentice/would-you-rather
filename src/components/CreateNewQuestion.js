@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Input, Button, Form, Typography, Avatar } from 'antd'
 import { handleAddQuestion } from '../actions/shared'
-import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 
 const { Text } = Typography
@@ -12,7 +12,8 @@ class CreateNewQuestion extends Component {
 
     state = {
         optionOneText:'',
-        optionTwoText:''
+        optionTwoText:'',
+        toHome: false,
     }
 
     handleSubmit = (e) =>{
@@ -20,9 +21,16 @@ class CreateNewQuestion extends Component {
         e.preventDefault()
 
         const { dispatch, authedUser } = this.props
-        const { optionOneText, optionTwoText } = this.props
+        const { optionOneText, optionTwoText } = this.state
+        const author = authedUser
         
-        dispatch(handleAddQuestion({ optionOneText, optionTwoText, authedUser}))
+        dispatch(handleAddQuestion({ optionOneText, optionTwoText, author}))
+
+        this.setState(()=>({
+            optionOneText:'',
+            optionTwoText:'',
+            toHome:true
+        }))
     }
 
     handleOptionOneText = (e) => {
@@ -41,6 +49,10 @@ class CreateNewQuestion extends Component {
 
     render () {
         const { authedUser , users} = this.props
+
+        if(this.state.toHome===true){
+            return <Redirect to="/home" />
+        }
 
         return (
             <div>
@@ -61,7 +73,6 @@ class CreateNewQuestion extends Component {
                     <Form.Item>
                         <Button type="primary" htmlType="submit">
                             New Question!
-                            <Link to='/' />
                         </Button>
                     </Form.Item>
                 </Form>
@@ -72,7 +83,6 @@ class CreateNewQuestion extends Component {
 }
 
 function mapStateToProps ({authedUser, users}) {
-
     return {
         authedUser,
         users,

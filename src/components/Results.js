@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Avatar, Typography } from 'antd'
+import { connect } from 'react-redux'
 
 
 const { Text } = Typography
@@ -41,4 +42,4 @@ function mapStateToProps ({authedUser, users, questions}, {id}) {
     }
 }*/
 
-export default Results
+export default connect()(Results)

@@ -4,29 +4,31 @@ import { recieveUsers, addUserAnswer, addUserQuestion } from './users'
 import { setAuthedUser } from './authedUser'
 
 /* temporary while I figure out login */
-const AUTHED_ID = ''
+//const AUTHED_ID = 'tylermcginnis' 
 
 export function handleInitialData () {
     return (dispatch) => {
+
         return getInitialData()
             .then(({users, questions})=>{
                 dispatch(recieveUsers(users))
                 dispatch(recieveQuestions(questions))
-                dispatch(setAuthedUser(AUTHED_ID))
             })
     }
 }
 
 export function handleAnswerQuestion (info) {
     return (dispatch) => {
-        console.log('handleAnswerQuestionReached', info)
         return saveQuestionAnswer(info)
-            .then(()=>dispatch(answerQuestion(info)))
-            .then(()=>dispatch(addUserAnswer(info)))
+            .then(()=>{
+                dispatch(answerQuestion(info))
+                dispatch(addUserAnswer(info))
+            })
     }
 }
 
 export function handleAddQuestion (question) {
+    console.log("HandleAnswerQuestion Reached")
     return (dispatch) => {
         return saveQuestion(question)
             .then((formattedQuestion)=>dispatch(addNewQuestion(formattedQuestion)))

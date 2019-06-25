@@ -1,6 +1,7 @@
 import {
     RECIEVE_USERS,
-    ADD_USER_ANSWER
+    ADD_USER_ANSWER,
+    ADD_USER_QUESTION
 } from '../actions/users'
 
 export default function users (state={}, action) {
@@ -21,6 +22,15 @@ export default function users (state={}, action) {
                     }
                 }
             }
+        case ADD_USER_QUESTION:
+            return {
+                ...state,
+                [action.question.author] : {
+                    ...state[action.question.author],
+                    questions : state[action.question.author].questions.concat([action.question.id])
+                }
+            }
+        
         default:
             console.log("default users")
             return state

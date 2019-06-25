@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Radio, Form, Button } from 'antd'
+import { Radio, Form, Button, Skeleton } from 'antd'
 import { connect } from 'react-redux'
 import { handleAnswerQuestion } from '../actions/shared'
 
@@ -16,42 +16,42 @@ class AnswerPoll extends Component {
         })
     }
 
-    handleVote = (info) => {
-        const { dispatch } = this.props
-        console.log("handling vote")
-        dispatch(handleAnswerQuestion(info))
+    handleVote = (e) => {
+        e.preventDefault()
+
+        const { dispatch, authedUser, qid } = this.props
+        const { answer } = this.state
+        dispatch(handleAnswerQuestion({ authedUser, qid, answer }))
     }
 
 
 
     render(){
-        const { authedUser, qid } = this.props
-        const { answer } = this.state
-        console.log({authedUser, qid, answer})
+        const { question } = this.props
+        console.log("AnswerPoll props",this.props)
         return(
             <div>
-                <Form onSubmit={()=>this.handleVote({authedUser, qid, answer})} >
-                    <Form.Item>
-                    <Radio.Group onChange={this.handleRadioState} buttonStyle="solid">
-                        <Radio.Button name="myRadioInput" value="optionOne">{this.props.question.optionOne.text}</Radio.Button>
-                        <Radio.Button name="myRadioInput" value="optionTwo">{this.props.question.optionTwo.text}</Radio.Button>
-                    </Radio.Group>
-                    </Form.Item>
-                    <Form.Item>
-                        <Button htmlType="submit">Vote!</Button>
-                    </Form.Item>
-                </Form>
+                    <Form onSubmit={this.handleVote} >
+                        <Form.Item>
+                        <Radio.Group onChange={this.handleRadioState} buttonStyle="solid">
+                            <Radio.Button name="myRadioInput" value="optionOne">{question.optionOne.text}</Radio.Button>
+                            <Radio.Button name="myRadioInput" value="optionTwo">{question.optionTwo.text}</Radio.Button>
+                        </Radio.Group>
+                        </Form.Item>
+                        <Form.Item>
+                            <Button htmlType="submit">Vote!</Button>
+                        </Form.Item>
+                    </Form>
             </div>
         )
     }
 }
 
-
-function mapStateToProps({}, {authedUser, qid, question}){
+function mapStateToProps({ authedUser }, { question, qid }){
     return {
         authedUser,
         qid,
-        question,
+        question
     }
 }
 
