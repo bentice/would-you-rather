@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Results from './Results'
 import AnswerPoll from './AnswerPoll'
 import { Card, Avatar, Typography } from 'antd'
+import { Route, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 
@@ -16,9 +17,17 @@ class Poll extends Component {
 
     componentDidMount(){
         const { currentList } = this.props
-        this.setState({
-            key: currentList
-        })
+        if(currentList){
+            this.setState({
+                key: currentList
+            })
+        }
+        else {
+            this.setState({
+                key: ''
+            })
+        }
+        
     }
     
 
@@ -61,9 +70,11 @@ class Poll extends Component {
                     style={{width: '100%'}}
                     title={
                     <div>
-                        <Avatar src={question.avatar} />
-                        <br />
-                        <Text>{question.name} wants to know would you rather...?</Text>
+                        <Link to={`/questions/:${qid}`}>
+                            <Avatar src={question.avatar} />
+                            <br />
+                            <Text>{question.name} wants to know would you rather...?</Text>
+                        </Link>
                     </div>
                     }
                     tabList={tabList}
@@ -71,6 +82,7 @@ class Poll extends Component {
                 >
                     {contentList[currentList]}
                 </Card>
+                
         )
     }
 }

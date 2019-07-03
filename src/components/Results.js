@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Avatar, Typography } from 'antd'
+import { Avatar, Typography, Icon } from 'antd'
 import { connect } from 'react-redux'
 
 
@@ -16,15 +16,15 @@ class Results extends Component {
         return (
         <Fragment>
                 <div>
-                <Text strong>{question.optionOne.text} :  </Text>
+                <Text strong>{optionOneLength} out of {(optionOneLength + optionTwoLength)} or {100*(optionOneLength / (optionOneLength + optionTwoLength))} % said they would rather {question.optionOne.text} :  </Text>
                     {question.optionOne['votes'].map(item=>(
-                    <Avatar src={users[item].avatarURL} />
+                        <Avatar size='large' src={users[item].avatarURL} />
                     ))}
                 </div>
                 <div>
-                <Text strong>{question.optionTwo.text} :  </Text>
+                <Text strong>{optionTwoLength} out of {(optionOneLength + optionTwoLength)} or {100*(optionTwoLength / (optionOneLength + optionTwoLength))} % said they would rather {question.optionTwo.text} :  </Text>
                     {question.optionTwo['votes'].map(item=>(
-                    <Avatar src={users[item].avatarURL} />
+                        <Avatar size='large' src={users[item].avatarURL} />
                     ))}
                 </div>
         </Fragment>

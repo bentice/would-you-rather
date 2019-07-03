@@ -10,8 +10,11 @@ class LeaderBoard extends Component {
 
     render () {
         const { users } = this.props
-        const userList = Object.keys(users)
-
+        const userList = Object.keys(users).sort((a, b) =>
+                        ((users[a].questions.length + Object.keys(users[a].answers).length) 
+                        < (users[b].questions.length + Object.keys(users[b].answers).length))
+                         ? 1 
+                         : -1)
         return (
             <Fragment>
                 <Title>Leaderboard</Title>

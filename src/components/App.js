@@ -1,9 +1,10 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment } from 'react'
+import { Avatar } from 'antd'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import Dashboard from './Dashboard'
-import NavBar from './NavBar2'
+import NavBar from './NavBar'
 import CreateNewQuestion from './CreateNewQuestion'
 import LeaderBoard from './LeaderBoard'
 import Login from './Login'
@@ -20,21 +21,24 @@ class App extends Component {
   
   render () {
     console.log("current User on dashboard render", this.props.authedUser)
+    
+    const {authedUser, users, questions} = this.props
+
+    const questionIDs = Object.keys(questions)
+    
     return (
       <Router>
         { this.props.loading
         ? null
         : (this.props.showLogin
-        ? <Route path='/' exact component={Login} />
+        ? <Route path='/' component={Login} />
         :
          <Fragment>
-          <NavBar />
+          <NavBar authedUser={authedUser} users={users} /> 
             <Route path='/home' exact component={Dashboard}/>
             <Route path='/new' exact component={CreateNewQuestion}/>
-            <Route path='/leaderboard' exact component={LeaderBoard}/>
+            <Route path='/leaderboard' exact component={LeaderBoard} />
         </Fragment>)
-        
-
         }
       </Router>
 
@@ -43,11 +47,13 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ users, authedUser }){
+function mapStateToProps({ users, authedUser, questions }){
   return {
     loading: users === null,
     showLogin: authedUser===null,
-    users
+    authedUser,
+    users,
+    questions
   }
 }
 

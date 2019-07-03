@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { handleLogin } from '../actions/authedUser'
 import { Icon, Avatar, Button, Radio, Row, Form } from 'antd'
-import { Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 class Login extends Component {
@@ -10,6 +10,7 @@ class Login extends Component {
     state = {
         selectedUser: '',
         toHome: false,
+        selectedUserBool: true,
     }
 
     handleSelectUser = (e) => {
@@ -18,7 +19,8 @@ class Login extends Component {
         const selectedUser = e.target.value
 
         this.setState({
-            selectedUser
+            selectedUser,
+            selectedUserBool: false
         })
         
     }
@@ -33,24 +35,24 @@ class Login extends Component {
     }
     
     render () {
-        const { selectedUser } = this.state
+        const { selectedUser, toHome, selectedUserBool } = this.state
         const { users, userIds} = this.props
 
         return (
             <Fragment>
                 <Form onSubmit={()=>this.handleUserLogin(selectedUser)}>
-                    <Row>
+                    <Row type='flex' justify='center'>
                         {userIds.map(id=>(
                             <Form.Item>
-                                <Button size="large" key={id} value={id} onClick={this.handleSelectUser}>
-                                    <Avatar src={users[id].avatarURL} size="large" />
+                                <Button size='large' key={id} value={id} onClick={this.handleSelectUser}>
+                                    <Avatar size='large' src={users[id].avatarURL} size="large" />
                                 </Button>
                             </Form.Item>
                         ))}
                     </Row>
-                    <Row>
+                    <Row type='flex' justify='center'>
                         <Form.Item>
-                            <Button shape="round" size="large" htmlType="submit">
+                            <Button disabled={selectedUserBool} shape="round" size="large" htmlType="submit">
                                     Login
                             </Button>
                         </Form.Item>
