@@ -23,8 +23,9 @@ class CreateNewQuestion extends Component {
         const { dispatch, authedUser } = this.props
         const { optionOneText, optionTwoText } = this.state
         const author = authedUser
+        const newQuestion = { optionOneText, optionTwoText, author}
         
-        dispatch(handleAddQuestion({ optionOneText, optionTwoText, author}))
+        dispatch(handleAddQuestion(newQuestion))
 
         this.setState(()=>({
             optionOneText:'',
@@ -64,11 +65,11 @@ class CreateNewQuestion extends Component {
                 </div>
                 <Form layout={'horizontal'} onSubmit={this.handleSubmit}>
                     <Form.Item label="Option One">
-                        <TextArea placeholder="Option One" value={this.state.optionOneText} onChange={this.handleOptionOneText} autosize allowclear/>
+                        <TextArea placeholder="Option One" value={this.state.optionOneText} onChange={this.handleOptionOneText} autosize allowclear="true"/>
                     </Form.Item>
                     <div style={{ margin: '24px 0' }} />
                     <Form.Item label="Option Two">
-                        <TextArea placeholder="Option Two" value={this.state.optionTwoText} onChange={this.handleOptionTwoText} autosize allowclear/>
+                        <TextArea placeholder="Option Two" value={this.state.optionTwoText} onChange={this.handleOptionTwoText} autosize allowclear="true"/>
                     </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType="submit">

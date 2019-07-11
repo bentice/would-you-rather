@@ -2,8 +2,9 @@ import React, { Component, Fragment } from 'react'
 import Results from './Results'
 import AnswerPoll from './AnswerPoll'
 import { Card, Avatar, Typography } from 'antd'
-import { Route, Link } from 'react-router-dom'
+import { Route, Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { formatQuestion } from '../utils/helpers'
 
 
 
@@ -13,21 +14,6 @@ class Poll extends Component {
     
     state = {
         key: '',
-    }
-
-    componentDidMount(){
-        const { currentList } = this.props
-        if(currentList){
-            this.setState({
-                key: currentList
-            })
-        }
-        else {
-            this.setState({
-                key: ''
-            })
-        }
-        
     }
     
 
@@ -70,7 +56,7 @@ class Poll extends Component {
                     style={{width: '100%'}}
                     title={
                     <div>
-                        <Link to={`/questions/:${qid}`}>
+                        <Link to={`/questions/${qid}`}>
                             <Avatar src={question.avatar} />
                             <br />
                             <Text>{question.name} wants to know would you rather...?</Text>
@@ -86,15 +72,7 @@ class Poll extends Component {
         )
     }
 }
-/*
-function mapStateToProps ({authedUser, users, questions}, {qid}) {
-    const question = questions[qid]
 
-    return {
-        authedUser,
-        question: formatQuestion(question , users[question.author], authedUser)
-    }
-}
-*/
 
-export default connect()(Poll)
+
+export default withRouter(connect()(Poll))

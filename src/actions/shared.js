@@ -28,7 +28,7 @@ export function handleAnswerQuestion (info) {
 }
 
 export function handleAddQuestion (question) {
-    console.log("HandleAnswerQuestion Reached")
+    
     return (dispatch) => {
         return saveQuestion(question)
             .then((formattedQuestion)=>dispatch(addNewQuestion(formattedQuestion)))

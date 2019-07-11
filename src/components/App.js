@@ -8,6 +8,7 @@ import NavBar from './NavBar'
 import CreateNewQuestion from './CreateNewQuestion'
 import LeaderBoard from './LeaderBoard'
 import Login from './Login'
+import PollPage from './PollPage'
 
 
 
@@ -36,8 +37,9 @@ class App extends Component {
          <Fragment>
           <NavBar authedUser={authedUser} users={users} dispatch={dispatch} /> 
             <Route path='/home' component={Dashboard}/>
-            <Route path='/new' exact component={CreateNewQuestion}/>
+            <Route path='/add' exact component={CreateNewQuestion}/>
             <Route path='/leaderboard' exact component={LeaderBoard} />
+            <Route path='/questions/:qid' exact component={PollPage} />
         </Fragment>)
         }
       </Router>

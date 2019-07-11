@@ -45,8 +45,8 @@ class NavBar extends Component {
                         Home
                     </NavLink>
                 </Menu.Item>
-                <Menu.Item key="new">
-                    <NavLink to="/new">
+                <Menu.Item key="add">
+                    <NavLink to="/add">
                         <Icon type="plus"/>
                         New Quesion
                     </NavLink>

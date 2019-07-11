@@ -32,7 +32,6 @@ export default function users (state={}, action) {
             }
         
         default:
-            console.log("default users")
             return state
     }
 }

@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { handleLogin } from '../actions/authedUser'
-import { Icon, Avatar, Button, Radio, Row, Form } from 'antd'
-import { Link } from 'react-router-dom'
-
+import { Icon, Avatar, Button, Col, Row, Form } from 'antd'
 
 class Login extends Component {
 
@@ -38,17 +36,19 @@ class Login extends Component {
         return (
             <Fragment>
                 <Form onSubmit={()=>this.handleUserLogin(selectedUser)}>
-                    <Row type='flex' justify='center'>
+                    <Row type='flex' justify='center' align='middle'>
                         {userIds.map(id=>(
-                            <Form.Item>
-                                <Button size='large' key={id} value={id} onClick={this.handleSelectUser}>
-                                    <Avatar size='large' src={users[id].avatarURL} size="large" />
-                                </Button>
-                            </Form.Item>
+                            <Col span={1} >
+                                <Form.Item key={id} >
+                                    <Button shape="circle" type='ghost' value={id} onClick={this.handleSelectUser}>
+                                        <Avatar src={users[id].avatarURL} size="large" />
+                                    </Button>
+                                </Form.Item>
+                            </Col>
                         ))}
                     </Row>
                     <Row type='flex' justify='center'>
-                        <Form.Item>
+                        <Form.Item key='form'>
                             <Button disabled={selectedUserBool} shape="round" size="large" htmlType="submit">
                                     Login
                             </Button>

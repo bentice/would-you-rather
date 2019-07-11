@@ -10,7 +10,6 @@ export function recieveUsers(users) {
 }
 
 export function addUserAnswer ({qid, authedUser, answer }) {
-    console.log("AddUserReached", {qid, authedUser, answer})
     return {
         type: ADD_USER_ANSWER,
         qid,
