@@ -12,3 +12,9 @@ export function handleLogin (id) {
         return(dispatch(setAuthedUser(id)))
     }
 }
+
+export function handleLogout () {
+    return (dispatch) => {
+        return(dispatch(setAuthedUser(null)))
+    }
+}

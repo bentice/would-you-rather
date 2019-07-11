@@ -26,12 +26,9 @@ class Login extends Component {
     }
 
     handleUserLogin (selectedUser) {
-        const { dispatch }  = this.props
+        const { dispatch, history }  = this.props
         dispatch(handleLogin(selectedUser))
-
-        this.setState(()=>({
-            toHome: true
-        }))
+        history.push('/home')
     }
     
     render () {

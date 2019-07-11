@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import 'antd/dist/antd.css'
-import { Menu, Icon, Typography, Row, Avatar, Col } from 'antd'
+import { Menu, Icon, Typography, Row, Avatar, Button } from 'antd'
 import { withRouter, NavLink } from 'react-router-dom'
+import { handleLogout } from '../actions/authedUser'
+
 
 const { Title } = Typography
 
@@ -17,15 +19,23 @@ class NavBar extends Component {
             current: e.key,
         })
     }*/
+
+    handleLogoutClick = e => {
+        const { dispatch } = this.props
+        dispatch(handleLogout())
+    }
+
     render () {
         const {authedUser, users } = this.props
         return (
             <Fragment>
             <Row type='flex' justify='end'>
-                <Avatar size='large' src={users[authedUser].avatarURL} />
-
-
+                <Avatar size={100} src={users[authedUser].avatarURL} />
                 <Title>{users[authedUser].name}</Title>
+
+            </Row>
+            <Row type='flex' justify='end'>
+                <Button onClick={this.handleLogoutClick}>{authedUser==='vader' ? "Leave The Darkside" : "Logout"}</Button>
             </Row>
             <Row>
             <Menu onClick={this.handleClick} selectedKeys={[this.props.pathname]} mode="horizontal">

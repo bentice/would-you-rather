@@ -22,7 +22,7 @@ class App extends Component {
   render () {
     console.log("current User on dashboard render", this.props.authedUser)
     
-    const {authedUser, users, questions} = this.props
+    const {authedUser, users, questions, dispatch } = this.props
 
     const questionIDs = Object.keys(questions)
     
@@ -34,8 +34,8 @@ class App extends Component {
         ? <Route path='/' component={Login} />
         :
          <Fragment>
-          <NavBar authedUser={authedUser} users={users} /> 
-            <Route path='/home' exact component={Dashboard}/>
+          <NavBar authedUser={authedUser} users={users} dispatch={dispatch} /> 
+            <Route path='/home' component={Dashboard}/>
             <Route path='/new' exact component={CreateNewQuestion}/>
             <Route path='/leaderboard' exact component={LeaderBoard} />
         </Fragment>)
