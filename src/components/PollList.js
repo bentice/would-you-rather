@@ -13,7 +13,7 @@ class PollList extends Component {
         ? Object.keys(questions)
             .filter(id => 
             [...questions[id].optionOne.votes,
-            ...questions[id].optionTwo.votes].includes(authedUser)).reverse()
+            ...questions[id].optionTwo.votes].includes(authedUser))
         : Object.keys(questions)
         .filter(id =>
         !([...questions[id].optionOne.votes,
