@@ -3,6 +3,7 @@ import 'antd/dist/antd.css'
 import { Menu, Icon, Typography, Row, Avatar, Button } from 'antd'
 import { withRouter, NavLink } from 'react-router-dom'
 import { handleLogout } from '../actions/authedUser'
+import { connect } from 'react-redux'
 
 
 const { Title } = Typography
@@ -27,6 +28,11 @@ class NavBar extends Component {
 
     render () {
         const {authedUser, users } = this.props
+
+        if(this.props.location.pathname==='/'){
+            return <div></div>
+        }
+
         return (
             <Fragment>
             <Row type='flex' justify='end'>
@@ -64,5 +70,12 @@ class NavBar extends Component {
     }
 }
 
-export default withRouter(NavBar)
+function mapStateToProps({users, authedUser}){
+    return {
+        users,
+        authedUser
+    }
+}
+
+export default withRouter(connect(mapStateToProps)(NavBar))
 

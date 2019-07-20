@@ -15,7 +15,7 @@ class PollPage extends Component {
     state = {
         key: 'unanswered',
     }
-    
+    /*
     componentDidMount(){
         const { question, authedUser } = this.props
         const currentList = [...question.optionOne.votes, ...question.optionTwo.votes]
@@ -34,6 +34,7 @@ class PollPage extends Component {
         }
         
     }
+    */
 
 
 
@@ -43,11 +44,25 @@ class PollPage extends Component {
     }
     
     render () {
-        const { qid, authedUser, question, users} = this.props
-        const currentList = [...question.optionOne.votes, ...question.optionTwo.votes]
-                                .includes(authedUser)  
-                            ? 'answered' 
-                            : 'unanswered'
+        const { qid, authedUser, question, users } = this.props
+
+        if(question===null){
+            return (<Card
+                style={{width: '100%'}}
+                title={
+                <div>  
+                <Text> This Question Doesn't Exist</Text>
+                </div>
+                }
+            />)
+        }
+
+        const currentList =  [...question.optionOne.votes, ...question.optionTwo.votes]
+             .includes(authedUser)  
+        ? 'answered' 
+        : 'unanswered'
+
+        
 
         const tabList = [
                             {
@@ -97,8 +112,7 @@ class PollPage extends Component {
 
 function mapStateToProps ({ questions, users, authedUser }, props) {
     const { qid } = props.match.params
-    console.log(qid)
-    const question = formatQuestion(questions[qid], users[questions[qid].author], authedUser)
+    const question = questions[qid] ? formatQuestion(questions[qid], users[questions[qid].author], authedUser) : null
 
     return {
         authedUser,

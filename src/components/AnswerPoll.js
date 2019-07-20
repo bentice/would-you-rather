@@ -6,13 +6,15 @@ import { handleAnswerQuestion } from '../actions/shared'
 class AnswerPoll extends Component {
 
     state = {
-        answer : ''
+        answer : '',
+        selectedOption : true
     }
 
     handleRadioState = e => {
 
         this.setState({
-            answer: e.target.value
+            answer: e.target.value,
+            selectedOption : false
         })
     }
 
@@ -28,7 +30,7 @@ class AnswerPoll extends Component {
 
     render(){
         const { question } = this.props
-        console.log("AnswerPoll props",this.props)
+        const { selectedOption } = this.state
         return(
             <div>
                     <Form onSubmit={this.handleVote} >
@@ -39,7 +41,7 @@ class AnswerPoll extends Component {
                         </Radio.Group>
                         </Form.Item>
                         <Form.Item>
-                            <Button htmlType="submit">Vote!</Button>
+                            <Button htmlType="submit" disabled={selectedOption}>Vote!</Button>
                         </Form.Item>
                     </Form>
             </div>

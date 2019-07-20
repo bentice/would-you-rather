@@ -24,7 +24,7 @@ class Poll extends Component {
     
     render () {
         const { qid, authedUser, question, users, currentList} = this.props
-        console.log("poll props", this.props)
+        
         const tabList = [
             {
                 key: 'unanswered',

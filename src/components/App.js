@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Avatar } from 'antd'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { HashRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import Dashboard from './Dashboard'
@@ -21,26 +20,19 @@ class App extends Component {
   }
   
   render () {
-    console.log("current User on dashboard render", this.props.authedUser)
-    
-    const {authedUser, users, questions, dispatch } = this.props
-
-    const questionIDs = Object.keys(questions)
     
     return (
       <Router>
         { this.props.loading
         ? null
-        : (this.props.showLogin
-        ? <Route path='/' component={Login} />
-        :
-         <Fragment>
-          <NavBar authedUser={authedUser} users={users} dispatch={dispatch} /> 
+        : <Fragment>
+            <NavBar /> 
+            <Route path='/' exact component={Login} />
             <Route path='/home' component={Dashboard}/>
             <Route path='/add' exact component={CreateNewQuestion}/>
             <Route path='/leaderboard' exact component={LeaderBoard} />
             <Route path='/questions/:qid' exact component={PollPage} />
-        </Fragment>)
+        </Fragment>
         }
       </Router>
 
@@ -49,13 +41,10 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ users, authedUser, questions }){
+function mapStateToProps({ users, authedUser }){
   return {
     loading: users === null,
-    showLogin: authedUser===null,
-    authedUser,
-    users,
-    questions
+    authedUser
   }
 }
 
