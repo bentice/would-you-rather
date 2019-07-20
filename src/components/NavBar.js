@@ -22,8 +22,9 @@ class NavBar extends Component {
     }*/
 
     handleLogoutClick = e => {
-        const { dispatch } = this.props
+        const { dispatch, history } = this.props
         dispatch(handleLogout())
+        history.push('/')
     }
 
     render () {

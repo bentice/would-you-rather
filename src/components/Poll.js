@@ -1,10 +1,9 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Results from './Results'
 import AnswerPoll from './AnswerPoll'
 import { Card, Avatar, Typography } from 'antd'
-import { Route, Link, withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { formatQuestion } from '../utils/helpers'
 
 
 

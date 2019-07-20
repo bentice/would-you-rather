@@ -30,7 +30,7 @@ class Login extends Component {
     }
     
     render () {
-        const { selectedUser, toHome, selectedUserBool } = this.state
+        const { selectedUser, selectedUserBool } = this.state
         const { users, userIds} = this.props
 
         return (
@@ -38,8 +38,8 @@ class Login extends Component {
                 <Form onSubmit={()=>this.handleUserLogin(selectedUser)}>
                     <Row type='flex' justify='center' align='middle'>
                         {userIds.map(id=>(
-                            <Col span={1} >
-                                <Form.Item key={id} >
+                            <Col span={1} key={id} >
+                                <Form.Item>
                                     <Button shape="circle" type='ghost' value={id} onClick={this.handleSelectUser}>
                                         <Avatar src={users[id].avatarURL} size="large" />
                                     </Button>

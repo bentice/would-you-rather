@@ -19,7 +19,7 @@ class LeaderBoard extends Component {
             <Fragment>
                 <Title>Leaderboard</Title>
                 <List
-                    itemLayou="vertical"
+                    itemLayout="vertical"
                     dataSource={userList}
                     renderItem={item =>(
                         <List.Item key={item}>

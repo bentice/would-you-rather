@@ -27,11 +27,11 @@ class App extends Component {
         ? null
         : <Fragment>
             <NavBar /> 
-            <Route path='/' exact component={Login} />
-            <Route path='/home' component={Dashboard}/>
-            <Route path='/add' exact component={CreateNewQuestion}/>
-            <Route path='/leaderboard' exact component={LeaderBoard} />
-            <Route path='/questions/:qid' exact component={PollPage} />
+            <Route key='login' path='/' exact component={Login} />
+            <Route key='home' path='/home' component={Dashboard}/>
+            <Route key='add' path='/add' exact component={CreateNewQuestion}/>
+            <Route key='leaderboard' path='/leaderboard' exact component={LeaderBoard} />
+            <Route key='questions' path='/questions/:qid' exact component={PollPage} />
         </Fragment>
         }
       </Router>

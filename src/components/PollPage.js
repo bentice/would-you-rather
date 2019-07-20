@@ -1,8 +1,7 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Results from './Results'
 import AnswerPoll from './AnswerPoll'
 import { Card, Avatar, Typography } from 'antd'
-import { Route, Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { formatQuestion } from '../utils/helpers'
 
@@ -15,28 +14,6 @@ class PollPage extends Component {
     state = {
         key: 'unanswered',
     }
-    /*
-    componentDidMount(){
-        const { question, authedUser } = this.props
-        const currentList = [...question.optionOne.votes, ...question.optionTwo.votes]
-                                .includes(authedUser)  
-                            ? 'answered' 
-                            : 'unanswered'
-        if(currentList){
-            this.setState({
-                key: currentList
-            })
-        }
-        else {
-            this.setState({
-                key: ''
-            })
-        }
-        
-    }
-    */
-
-
 
     onTabChange = (key) => {
         console.log(key);
