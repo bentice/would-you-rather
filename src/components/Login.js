@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { handleLogin } from '../actions/authedUser'
 import { Icon, Avatar, Button, Col, Row, Form } from 'antd'
+import 'antd/dist/antd.css'
 
 class Login extends Component {
 
@@ -28,34 +29,38 @@ class Login extends Component {
         dispatch(handleLogin(selectedUser))
         history.push('/home')
     }
+
+    
     
     render () {
         const { selectedUser, selectedUserBool } = this.state
         const { users, userIds} = this.props
 
+        const styles={
+            formStyle:{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                height: '100%',
+                justifyContent: 'space-around'
+            }
+        }
+
         return (
-            <Fragment>
-                <Form onSubmit={()=>this.handleUserLogin(selectedUser)}>
-                    <Row type='flex' justify='center' align='middle'>
-                        {userIds.map(id=>(
-                            <Col span={1} key={id} >
-                                <Form.Item>
-                                    <Button shape="circle" type='ghost' value={id} onClick={this.handleSelectUser}>
-                                        <Avatar src={users[id].avatarURL} size="large" />
-                                    </Button>
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row type='flex' justify='center'>
-                        <Form.Item key='form'>
-                            <Button disabled={selectedUserBool} shape="round" size="large" htmlType="submit">
+                <Form style={styles.formStyle} onSubmit={()=>this.handleUserLogin(selectedUser)}>
+                        <div style={{ display: 'flex', flexDirection: 'row'}}>
+                            {userIds.map(id=>(
+                                <Button style={{width: 400, height: 400}} shape="circle" type='ghost' value={id} onClick={this.handleSelectUser}>
+                                    <Avatar style={{width: '97%', height: '97%'}} src={users[id].avatarURL} size="large" />
+                                </Button>
+                            ))}
+                        </div>
+                    <Form.Item key='form'>
+                        <Button disabled={selectedUserBool} shape="round" size="large" htmlType="submit">
                                     Login
-                            </Button>
-                        </Form.Item>
-                    </Row>
+                        </Button>
+                    </Form.Item>
                 </Form>
-            </Fragment>
         )
     }
 }

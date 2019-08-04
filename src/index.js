@@ -12,7 +12,6 @@ import * as serviceWorker from './serviceWorker';
 
 const store = createStore(reducer, middleware)
 
-
 ReactDOM.render(
     <Provider store={store}>
         <App />
